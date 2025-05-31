@@ -52,4 +52,5 @@ Visit http://127.0.0.1:5000 in your browser.
 6. Upload another image to analyze a new image
 ![Alt text](screenshots/6.png)
 ![Alt text](screenshots/7.png)
+![Alt text](screenshots/8.png)
 
