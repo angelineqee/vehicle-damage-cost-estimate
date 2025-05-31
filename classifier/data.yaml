@@ -1,0 +1,14 @@
+path: C:\Users\angel\Documents\Inspxtra\AI_Damage_Cost_Estimator
+train: train/images
+val: valid/images
+test: test/images
+
+nc: 2
+names: ['rapairable', 'replaceable']
+
+roboflow:
+  workspace: folder1
+  project: repair-replace-13
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/folder1/repair-replace-13/dataset/1

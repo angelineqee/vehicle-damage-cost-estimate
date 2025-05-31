@@ -1,0 +1,141 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f9f9f9;
+  color: #333;
+  padding: 10px;
+  max-width: 600px;
+  margin: auto;
+}
+
+h2 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+form {
+  max-width: 700px; 
+  background: white;
+  padding: 25px 40px;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 8px;
+  color: #555;
+}
+
+select, input[type="file"] {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1.8px solid #ddd;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+select:focus, input[type="file"]:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+input[type="submit"] {
+  width: 100%;
+  background: #3498db;
+  color: white;
+  font-weight: 700;
+  border: none;
+  padding: 14px;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover {
+  background: #2980b9;
+}
+
+h3 {
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 30px;
+}
+
+img {
+  display: block;
+  margin: 15px auto;
+  border-radius: 12px;
+  box-shadow: 0 5px 12px rgba(0,0,0,0.15);
+  max-width: 100%;
+  height: auto;
+}
+
+#result {
+  margin-top: 15px;
+  max-width: 700px; 
+  background: white;
+  padding: 10px 100px;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+#result h3{
+  margin-top: 10px;
+}
+
+
+#damaged-text {
+    background-color: #d44444; /* Light red background */
+    color: #f3e8e8;            /* Dark red text */
+    padding: 4px 8px;
+    border-radius: 8px;        /* Rounded corners */
+    font-size: 12px;
+    display: inline-flex;      /* inline-flex or flex */
+    align-items: center;       /* vertical center */
+    justify-content: center; 
+}
+
+#not-damaged-text {
+    background-color: #70ba69; /* Light red background */
+    color: #f2faf0;            /* Dark red text */
+    padding: 4px 8px;
+    border-radius: 8px;        /* Rounded corners */
+    font-size: 12px;
+    display: inline-flex;      /* inline-flex or flex */
+    align-items: center;       /* vertical center */
+    justify-content: center; 
+}
+
+.cost-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px; /* Reduce space between rows */
+}
+.cost-row p {
+    margin: 0; /* Remove default paragraph margin */
+}
+
+#download-pdf-btn {
+  background: #2980b9;
+  color: white;
+  font-weight: 700;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: smaller;
+}
+
+#steps {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    color:gray;
+}

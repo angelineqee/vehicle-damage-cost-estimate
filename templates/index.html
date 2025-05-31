@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dropdown + Image Upload</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h2>Vehicle Damage Assessment</h2>
+    <div id="steps">
+        <i class="fa-solid fa-square-caret-down"></i>
+        <p>Select the car part to assess</p>
+        <i class="fa-solid fa-upload"></i>
+        <p>Upload the image of vehicle</p>
+        <i class="fa-solid fa-dollar-sign"></i>
+        <p>Get cost estimate for damage</p>
+    </div>
+    <form method="POST" enctype="multipart/form-data">
+        <div style="display: flex; flex-direction: column; align-items: center;  width: 100%; ">
+            <div style="width: 100%; margin-bottom: 20px;">
+                <label for="dropdown">Choose a car part:</label>
+                <select name="dropdown" id="dropdown">
+                    <option value="Front">Front</option>
+                    <option value="Rear">Rear</option>
+                    <option value="Side">Side</option>
+                </select>
+            </div>
+
+            <div style="width: 100%">
+                <label for="file">Upload an image:</label>
+                <input type="file" name="file" id="file" accept="image/*" onchange="previewImage(event)">
+                <p style="font-size: x-small;color: darkgrey; margin:0;">Upload a clear image of the car part ('png', 'jpg', 'jpeg')</p>
+            </div>
+        </div>
+        
+        
+        <img id="preview" src="" width="300" style="display: none;">
+        <br>
+        <input type="submit" value="Analyze Damage & Estimate Cost">
+    </form>
+
+    {% if damage and selected_option and image_url and highest_score and costs%}
+        <div id="result">
+            <h3>Analysis Results:</h3>
+            <img src="{{ url_for('static', filename='prediction_out/' + image_url) }}" width="300">
+            <div style="display: flex; flex-direction: row; justify-content: space-between; margin:0;">
+                <h4>{{ selected_option }}</h4>
+                <h4 id="damaged-text">Damage Detected</h4>
+            </div>
+            <div style="display: flex; flex-direction: row; justify-content: space-between; margin:0; align-items: center;">
+                <h4>Highest confidence</h4>
+                <p>{{ highest_score }}</p>
+            </div>
+            <h4 style="margin-top:0;margin-bottom:10px;">Cost Estimate</h4>
+                <div class="cost-row">
+                    <p style="font-size:smaller">Part Cost:</p>
+                    <p style="font-size:smaller">RM{{ costs.part_cost }}</p>
+                </div>
+                <div class="cost-row">
+                    <p style="font-size:smaller">Labor Cost:</p>
+                    <p style="font-size:smaller">RM{{ costs.labor_cost }}</p>
+                </div>
+                <div class="cost-row">
+                    <p style="color:#2980b9"><strong>Total Cost:</strong></p>
+                    <p style="color:#2980b9"><strong>RM{{ costs.total_cost }}</strong></p>
+                </div>
+            <div style="display: flex; justify-content: flex-end; margin-top: 30px;">
+                <button id="download-pdf-btn">Download as PDF</button>
+            </div>
+        </div>
+    {% elif damage is not none and not damage %}
+          <div id="result">
+            <h3>Analysis Results:</h3>
+            <img src="{{ url_for('static', filename='uploads/' + image_url) }}" width="300">
+            <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                <h4>{{ selected_option }}</h4>
+                <h4 id="not-damaged-text">Not damaged</h4>
+            </div>
+            <div style="display: flex; justify-content: flex-end; margin-top: 30px;">
+                <button id="download-pdf-btn">Download as PDF</button>
+            </div>
+        </div>
+    {% endif %}
+
+    <script>
+          document.querySelector('form').addEventListener('submit', function(e) {
+            const fileInput = document.getElementById('file');
+            if (!fileInput.value) {
+            e.preventDefault();  // stop form submission
+            alert('Please upload an image before submitting.');
+            }
+        });
+        function previewImage(event) {
+            const file = event.target.files[0];
+            const preview = document.getElementById('preview');
+
+            if (file) {
+                preview.src = URL.createObjectURL(file);
+                preview.style.display = 'block';
+            }
+        }
+          document.getElementById('download-pdf-btn').addEventListener('click', () => {
+            const element = document.getElementById('result');
+            const opt = {
+            margin:       0.5,
+            filename:     'analysis_result.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 1, scrollY: 0 },
+            jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(element).save();
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/8b48955e3d.js" crossorigin="anonymous"></script>
+</body>
+</html>
